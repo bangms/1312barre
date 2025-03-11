@@ -12,7 +12,11 @@ import WhiteLogo01 from "./logo/white_signature01.png";
 import WhiteLogo02 from "./logo/white_signature02.png";
 import WhiteLogo03 from "./logo/white_signature03.png";
 import Center01 from "./center01.jpg";
+import Slogan from "./slogan.png";
 import { ReactComponent as Logo } from "./logo/logo01.svg";
+
+import Yerin from "./yerin02.jpg"; 
+import BarreLogo from "./barrelogos.png";
 
 export {
   ArrowIcon,
@@ -29,5 +33,8 @@ export {
   WhiteLogo02,
   WhiteLogo03,
   Logo,
-  Center01
+  Center01,
+  Slogan,
+  Yerin,
+  BarreLogo
 };

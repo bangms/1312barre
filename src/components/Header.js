@@ -42,6 +42,14 @@ const Header = () => {
     ["rgb(14,118,188)", "#fff", "rgb(14,118,188)"]
   );
 
+  // 0~300px 구간: 완전 투명 → 반투명 그라데이션
+  // 그 이상: 짙은 메인 컬러 그라데이션으로 유지
+  const gradientValue = useTransform(scrollY, [0, 300, 99999], [
+    "linear-gradient(to bottom, rgba(14,118,188,0.5) 0%, rgba(14,118,188,0) 100%)",
+    "linear-gradient(to bottom, rgba(14,118,188,0.8) 0%, rgba(14,118,188,0.3) 100%)",
+    "linear-gradient(to bottom, rgba(14,118,188,1) 0%, rgba(14,118,188,1) 100%)"
+  ]);
+
   const handleScroll = () => {
     const scrollYValue = scrollY.get();
 
@@ -53,10 +61,6 @@ const Header = () => {
     }
 
   };
-
-  useEffect(() => {
-    console.log('colorValue', colorValue);
-  }, [colorValue])
 
   useEffect(() => {
     // 스크롤 이벤트 리스너 등록
@@ -85,7 +89,7 @@ const Header = () => {
       >
         <MenuContainer>
           <BtnList option={isPc}>
-            <LogoBtn href="#">
+            <LogoBtn href="/">
               <MotionLogo
                 style={{fill: txtColorValue}} 
               />
@@ -99,7 +103,7 @@ const Header = () => {
                     </motion.a>
                   </MenuLi>
                   <MenuLi>
-                    <motion.a href="#" style={{ color: txtColorValue }}>
+                    <motion.a href="/founder" style={{ color: txtColorValue }}>
                     Founder/Instructor
                     </motion.a>
                     <SubMenuUl
@@ -111,7 +115,7 @@ const Header = () => {
                       </motion.a>
                     </SubMenuLi>
                     <SubMenuLi>
-                      <motion.a href="/instructor" style={{ color: txtColorValue }}>
+                      <motion.a href="/founder" style={{ color: txtColorValue }}>
                         Instructor
                       </motion.a>
                     </SubMenuLi>
@@ -206,7 +210,7 @@ const Header = () => {
           </BtnList>
         </MenuContainer>
       </Wrapper>
-      {scrolling && isMobile && (
+      {(scrolling || isMobile) && (
         <ScrollToTopButton
           variants={scrollToTopVariants}
           initial="hidden"
@@ -223,8 +227,18 @@ const Header = () => {
 const Wrapper = styled(motion.div)`
   width: 100%;
   height: 94px;
-  background: #000;
   z-index: 9999;
+  background: linear-gradient(
+  to bottom,
+  rgba(255,255,255,0.7) 0%,   /* 헤더 상단 부분은 70% 불투명 흰색 */
+  rgba(255,255,255,0.3) 70%,  /* 중간 정도 투명 */
+  rgba(255,255,255,0) 100%    /* 하단으로 갈수록 완전 투명 */
+  );
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  backdrop-filter: blur(8px);    /* 블러 처리 */
+  -webkit-backdrop-filter: blur(8px); /* 사파리 호환 */
+  transition: background 0.3s ease-in-out;
   ${({ theme }) => theme.common.flexCenter};
   ${(props) =>
     props.option !== "hide" && (({ theme }) => theme.common.fixedTop)};
@@ -289,8 +303,11 @@ const MenuLi = styled(motion.li)`
     font-weight: 700;
     text-align: center;
   }
-  & a:after {
-    ${({ theme }) => theme.common.lineAnimation};
+  &:hover {
+    a {
+      color: #32A0D2 !important;
+      transition: all 0.3s;
+    }
   }
 
   &:nth-child(2) a:hover + ${SubMenuUl} {
@@ -315,13 +332,7 @@ const SubMenuLi = styled.li`
   &:hover {
     display: flex;
   }
-  &:after {
-    ${({ theme }) => theme.common.lineAnimation};
-  }
-  &:hover:after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
+
 `;
 const MenuUl = styled.ul`
   ${({ theme }) => theme.common.flexCenterRow};
@@ -343,8 +354,12 @@ const Contact = styled.div`
     cursor: pointer;
     text-decoration: none;
   }
+    a:hover {
+      background: rgb(10,90,142);
+      transition: all 0.3s;
+    }
 `;
-const LogoBtn = styled.div`
+const LogoBtn = styled.a`
   width: 100%;
   height: 100px;
   display: flex;

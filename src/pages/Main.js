@@ -1,5 +1,7 @@
-import Header from "../components/Header";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
     BlueLogo01,
     BlueLogo02,
@@ -17,7 +19,6 @@ import {
 const Main = () => {
     return (
         <>
-        <Header />
         <Wrapper>
             <Div01>1</Div01>
             <Div02></Div02>

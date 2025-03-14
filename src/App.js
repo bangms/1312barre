@@ -15,12 +15,12 @@ const AppRoutes = () => {
     <Layout location={location}>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Main />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/founder" element={<Founder />} />
-          <Route path="/classes" element={<Classes />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path={process.env.PUBLIC_URL + "/"} element={<Main />} />
+          <Route path={process.env.PUBLIC_URL + "/about"} element={<About />} />
+          <Route path={process.env.PUBLIC_URL + "/founder"} element={<Founder />} />
+          <Route path={process.env.PUBLIC_URL + "/classes"} element={<Classes />} />
+          <Route path={process.env.PUBLIC_URL + "/faq"} element={<FAQ />} />
+          <Route path={process.env.PUBLIC_URL + "/contact"} element={<Contact />} />
         </Routes>
       </AnimatePresence>
     </Layout>

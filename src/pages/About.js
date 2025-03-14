@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Slogan, Center01 } from "../assets/import";
 import AnimatedDesc from "../components/AnimatedDesc";
+import { useMediaQuery } from "react-responsive";
 
 const About = () => {
   const sectionRef = useRef(null);
@@ -31,6 +32,10 @@ const About = () => {
     },
   };
 
+  const isMobile = useMediaQuery({
+    query: "(min-width:600px)",
+  });
+
   return (
     <Wrapper>
       <Desc1
@@ -47,46 +52,75 @@ const About = () => {
 
       {/* 첫 번째 Desc 섹션 */}
       <Desc>
-      <AnimatedDesc>
-        <img src={Slogan} alt="slogan" />
-      </AnimatedDesc>
-      <AnimatedDesc>
-        <SubTxt>
-          “Barre with me” 라는 슬로건처럼,
-          <br /> 함께하면 더 즐겁고 의미있는 시간이 될 거예요.
-        </SubTxt>
-      </AnimatedDesc>
-
+        <AnimatedDesc>
+          <ImgContainer>
+            <img src={Slogan} alt="slogan" />
+          </ImgContainer>
+        </AnimatedDesc>
+        <AnimatedDesc>
+          <SubTxt>
+            “Barre with me” 라는 슬로건처럼,
+            <br /> 함께하면 더 즐겁고 의미있는 시간이 될 거예요.
+          </SubTxt>
+        </AnimatedDesc>
       </Desc>
 
       {/* 두 번째 Desc 섹션 */}
-      <AnimatedDesc>
-        <SubTxt>
-          바레는 단순한 운동이 아니에요.
-          <br />
-          몸과 마음을 동시에 깨우는 경험으로, 누구나 즐길 수 있는 운동입니다.
-          <br />
-          비트 있는 음악에 맞춰 리듬을 타며 몸을 움직이는 동안
-          <br />
-          힘든 순간 조차 신나고 즐거운 시간이 됩니다.
-        </SubTxt>
-    </AnimatedDesc>
-    <AnimatedDesc>
-        <img src={Center01} alt="center picture" />
-      </AnimatedDesc>
-      <AnimatedDesc>
-        <SubTxt>
-          1312barre에서 바레의 매력을 느끼고, 그 에너지를 나누세요.
-          <br />
-          더 나은 몸과 더 행복한 삶을 위한 첫걸음, 이곳에서 시작됩니다.
-          <br />
-          <br />
-          <br />
-          여러분의 바레 라이프, 함께 만들어 가요!
-          <br />
-          Barre with me!
-        </SubTxt>
-      </AnimatedDesc>
+      <Desc>
+        <AnimatedDesc>
+          {
+            isMobile ? (
+              <>
+              <SubTxt>
+                바레는 단순한 운동이 아니에요.
+                <br />
+                몸과 마음을 동시에 깨우는 경험으로, 
+                <br />
+                누구나 즐길 수 있는 운동입니다.
+                <br />
+                비트 있는 음악에 맞춰 리듬을 타며 
+                <br />
+                몸을 움직이는 동안
+                <br />
+                힘든 순간 조차 신나고 즐거운 시간이 됩니다.
+              </SubTxt>
+              </>
+            ) : (
+              <>
+              <SubTxt>
+                바레는 단순한 운동이 아니에요.
+                <br />
+                몸과 마음을 동시에 깨우는 경험으로, 누구나 즐길 수 있는 운동입니다.
+                <br />
+                비트 있는 음악에 맞춰 리듬을 타며 몸을 움직이는 동안
+                <br />
+                힘든 순간 조차 신나고 즐거운 시간이 됩니다.
+              </SubTxt>
+              </>
+            )
+          }
+        </AnimatedDesc>
+      </Desc>
+      <Desc>
+        <AnimatedDesc>
+          <ImgContainer>
+            <img src={Center01} alt="center picture" />
+          </ImgContainer>
+        </AnimatedDesc>
+        <AnimatedDesc>
+          <SubTxt>
+            1312barre에서 바레의 매력을 느끼고, 그 에너지를 나누세요.
+            <br />
+            더 나은 몸과 더 행복한 삶을 위한 첫걸음, 이곳에서 시작됩니다.
+            <br />
+            <br />
+            <br />
+            여러분의 바레 라이프, 함께 만들어 가요!
+            <br />
+            Barre with me!
+          </SubTxt>
+        </AnimatedDesc>
+      </Desc>
     </Wrapper>
   );
 };
@@ -109,17 +143,28 @@ const Desc1 = styled(motion.div)`
   height: 100vh;
 `;
 const Desc = styled.div`
+  width: 100%;
+  padding: 100px 0;
+  img {
     width: 100%;
-    padding: 100px 0;
-    img {
-        width: 100%;
-    }
+  }
 `;
 const MainTxt = styled(motion.div)`
   font-family: "TANHEADLINE";
   font-size: 7rem;
   font-weight: bold;
   margin-bottom: 30px;
+  @media screen and (max-width: 1260px) {
+    
+  }
+  @media screen and (max-width: 1060px) {
+
+  }
+  @media screen and (max-width: 600px) {
+    text-align: center;
+    line-height: 7rem;
+    font-size: 5rem;
+  }
 `;
 
 const SubTxt = styled(motion.div)`
@@ -127,11 +172,25 @@ const SubTxt = styled(motion.div)`
   text-align: center;
   font-weight: 500;
   font-style: normal;
-  margin-top: 15px;
   font-size: 2rem;
   line-height: 3rem;
+  @media screen and (max-width: 1260px) {
+    
+  }
+  @media screen and (max-width: 1060px) {
+
+  }
+  @media screen and (max-width: 600px) {
+    text-align: center;
+    padding: 0 20px;
+    width: calc(100% - 40px) !important;
+  }
 `;
 
+const ImgContainer = styled.div`
+  width: 90% !important;
+  margin: 100px 50px;
+`;
 const CenterPic = styled.div``;
 
 export default About;

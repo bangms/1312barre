@@ -8,20 +8,17 @@ import {
   WhiteLogo01,
   WhiteLogo02,
   WhiteLogo03,
-  HamburgerIcon,
-  HamburgerIconOff,
   TopBtn,
   Logo
 } from "../assets/import";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { MobileHeaderMenu } from "./MobileHeaderMenu";
 
 const Header = () => {
   const { scrollY, scrollYProgress } = useScroll();
-  const [dropDownOnOff, setDropDownOnOff] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const MotionLogo = motion(Logo);
-  const HamburgerIconSvg = motion(HamburgerIcon);
-  const HamburgerIconOffSvg = motion(HamburgerIconOff);
+
 
   const isPc = useMediaQuery({
     query: "(min-width:850px)",
@@ -169,42 +166,9 @@ const Header = () => {
               </>
             ) : (
               <>
-              <HIconContainer
-                onClick={() => {
-                  setDropDownOnOff(!dropDownOnOff);
-                }}
-              >
-                {dropDownOnOff ? (
-                  <HamburgerIconOffSvg style={{fill: txtColorValue}} />
-                ) : (
-                  <HamburgerIconSvg style={{fill: txtColorValue}} />
-                )}
-                {dropDownOnOff && (
-                  <HMenuContainer style={{ background: colorValue }}>
-                    <HMenuEl>
-                      <motion.span style={{ color: txtColorValue }}>
-                        Service
-                      </motion.span>
-                      Service
-                    </HMenuEl>
-                    <HMenuEl>
-                      <motion.span style={{ color: txtColorValue }}>
-                        Technology
-                      </motion.span>
-                    </HMenuEl>
-                    <HMenuEl>
-                      <motion.span style={{ color: txtColorValue }}>
-                        About
-                      </motion.span>
-                    </HMenuEl>
-                    <HMenuEl>
-                      <motion.span style={{ color: txtColorValue }}>
-                        Contact
-                      </motion.span>
-                    </HMenuEl>
-                  </HMenuContainer>
-                )}
-              </HIconContainer>
+              <MobileMenuIconContainer>
+                <MobileHeaderMenu btnColor={txtColorValue} backColor={colorValue}/>
+              </MobileMenuIconContainer>
               </>
             )}
           </BtnList>
@@ -228,21 +192,13 @@ const Wrapper = styled(motion.div)`
   width: 100%;
   height: 94px;
   z-index: 9999;
-  background: linear-gradient(
-  to bottom,
-  rgba(255,255,255,0.7) 0%,   /* 헤더 상단 부분은 70% 불투명 흰색 */
-  rgba(255,255,255,0.3) 70%,  /* 중간 정도 투명 */
-  rgba(255,255,255,0) 100%    /* 하단으로 갈수록 완전 투명 */
-  );
   border-bottom: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   backdrop-filter: blur(8px);    /* 블러 처리 */
   -webkit-backdrop-filter: blur(8px); /* 사파리 호환 */
-  transition: background 0.3s ease-in-out;
   ${({ theme }) => theme.common.flexCenter};
   ${(props) =>
     props.option !== "hide" && (({ theme }) => theme.common.fixedTop)};
-  transition: all 0.2s ease-in-out 0s;
   @media screen and (max-width: 768px) {
     height: 64px;
   }
@@ -255,7 +211,7 @@ const BtnList = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.option ? "120px 1fr 120px" : "1fr 1fr"};
   align-content: center;
-  justify-items: center;
+  justify-items:  ${(props) => props.option ? "center" : "space-between"};
 `;
 const SubMenuUl = styled(motion.ul)`
   position: fixed;
@@ -364,74 +320,19 @@ const LogoBtn = styled.a`
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: center;
-   @media screen and (max-width: 768px) {
-    justify-content: space-between;
-  }
-  @media screen and (max-width: 600px) {
-    justify-content: space-between;
-  }
-
   svg {
     width: 120px;
     height: 30px;
   }
 `;
 
-const HIconContainer = styled.div`
+const MobileMenuIconContainer = styled.div`
   cursor: pointer;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-`;
-const HMenuContainer = styled(motion.div)`
-  width: 100%;
-  position: absolute;
-  top: 64px;
-  left: 0;
-  ${({ theme }) => theme.common.flexCenterColumn};
-  align-items: flex-start;
-  gap: 32px;
-  padding: 32px 60px;
-  background: #000;
-  @media screen and (max-width: 600px) {
-    padding: 32px 20px;
-  }
-`;
-const HMenuEl = styled(motion.div)`
-  width: 100vw;
-  ${({ theme }) => theme.common.flexCenter};
-  justify-content: space-between;
-  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) 0s;
-  & span {
-    z-index: 2;
-    ${({ theme }) => theme.common.mobileTxt};
-    color: #000;
-    font-weight: 500;
-  }
-  &:after {
-    background: ${(props) =>
-      props.option === "black" ? "rgb(20, 20, 20)" : "rgb(246, 247, 248)"};
-    display: block;
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 100vw;
-    height: 51px;
-    transform-origin: 0px 0px;
-    ${({ theme }) => theme.common.transition};
-  }
-
-  &:hover:after {
-    transform: scaleX(1);
-    transform-origin: 0px 0px;
-    backface-visibility: hidden;
-  }
-  @media screen and (max-width: 600px) {
-    left: -20px;
-  }
 `;
 const ScrollToTopButton = styled(motion.button)`
   position: fixed;

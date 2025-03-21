@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import {
@@ -13,6 +13,9 @@ import {
 } from "../assets/import";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MobileHeaderMenu } from "./MobileHeaderMenu";
+import { Link } from "react-router-dom";
+
+const MotionLink = motion(Link);
 
 const Header = () => {
   const { scrollY, scrollYProgress } = useScroll();
@@ -31,7 +34,7 @@ const Header = () => {
   const colorValue = useTransform(
     scrollY,
     [0, 375, 376],
-    ["rgba(14,118,188,0)", "rgba(14,118,188,100)", "rgba(14,118,188,0)"]
+    ["#fff", "rgba(14,118,188,100)", "#fff"]
   );
   const txtColorValue = useTransform(
     scrollY,
@@ -79,96 +82,130 @@ const Header = () => {
   const isMobile = useMediaQuery({
     query: "(max-width:600px)",
   });
-    return (
-        <>
-        <Wrapper
-        style={{ background: colorValue, display: displayValue }}
-      >
+  return (
+    <>
+      <Wrapper style={{ background: colorValue, display: displayValue }}>
         <MenuContainer>
           <BtnList option={isPc}>
-            <LogoBtn href="/">
-              <MotionLogo
-                style={{fill: txtColorValue}} 
-              />
+            <LogoBtn>
+              <MotionLink to="/">
+                <MotionLogo style={{ fill: txtColorValue }} />
+              </MotionLink>
             </LogoBtn>
             {isPc ? (
               <>
                 <MenuUl>
                   <MenuLi>
-                    <motion.a href="/about" style={{ color: txtColorValue }}>
+                    <MotionLink
+                      to="/about"
+                      style={{ color: txtColorValue }}
+                    >
                       About
-                    </motion.a>
+                    </MotionLink>
                   </MenuLi>
                   <MenuLi>
-                    <motion.a href="/founder" style={{ color: txtColorValue }}>
-                    Founder/Instructor
-                    </motion.a>
+                    <MotionLink
+                      to="/founder"
+                      style={{ color: txtColorValue }}
+                    >
+                      Founder/Instructor
+                    </MotionLink>
                     <SubMenuUl
                       style={{ background: colorValue, color: txtColorValue }}
                     >
-                    <SubMenuLi>
-                      <motion.a href="/founder" style={{ color: txtColorValue }}>
-                        Founder
-                      </motion.a>
-                    </SubMenuLi>
-                    <SubMenuLi>
-                      <motion.a href="/founder" style={{ color: txtColorValue }}>
-                        Instructor
-                      </motion.a>
-                    </SubMenuLi>
+                      <SubMenuLi>
+                        <MotionLink
+                          to="/founder"
+                          style={{ color: txtColorValue }}
+                        >
+                          Founder
+                        </MotionLink>
+                      </SubMenuLi>
+                      <SubMenuLi>
+                        <MotionLink
+                          to="/founder"
+                          style={{ color: txtColorValue }}
+                        >
+                          Instructor
+                        </MotionLink>
+                      </SubMenuLi>
                     </SubMenuUl>
                   </MenuLi>
                   <MenuLi>
-                    <motion.a href="/classes" style={{ color: txtColorValue }}>
+                    <MotionLink
+                      to="/classes"
+                      style={{ color: txtColorValue }}
+                    >
                       1312 CLASSES
-                    </motion.a>
+                    </MotionLink>
                     <SubMenuUl
                       style={{ background: colorValue, color: txtColorValue }}
                     >
                       <SubMenuLi>
-                        <motion.a href="/classes" style={{ color: txtColorValue }}>
+                        <MotionLink
+                          to="/classes"
+                          style={{ color: txtColorValue }}
+                        >
                           Align flow
-                        </motion.a>
+                        </MotionLink>
                       </SubMenuLi>
                       <SubMenuLi>
-                        <motion.a href="/classes" style={{ color: txtColorValue }}>
+                        <MotionLink
+                          to="/classes"
+                          style={{ color: txtColorValue }}
+                        >
                           Balance
-                        </motion.a>
+                        </MotionLink>
                       </SubMenuLi>
                       <SubMenuLi>
-                        <motion.a href="/classes" style={{ color: txtColorValue }}>
+                        <MotionLink
+                          to="/classes"
+                          style={{ color: txtColorValue }}
+                        >
                           Cardio boost
-                        </motion.a>
+                        </MotionLink>
                       </SubMenuLi>
                       <SubMenuLi>
-                        <motion.a href="/classes" style={{ color: txtColorValue }}>
+                        <MotionLink
+                          to="/classes"
+                          style={{ color: txtColorValue }}
+                        >
                           Power strength
-                        </motion.a>
+                        </MotionLink>
                       </SubMenuLi>
                     </SubMenuUl>
                   </MenuLi>
                   <MenuLi>
-                    <motion.a href="/faq" style={{ color: txtColorValue }}>
+                    <MotionLink
+                      to="/faq"
+                      style={{ color: txtColorValue }}
+                    >
                       FAQ
-                    </motion.a>
+                    </MotionLink>
                   </MenuLi>
                   <MenuLi>
-                    <motion.a href="/contact" style={{ color: txtColorValue }}>
+                    <MotionLink
+                      to="/contact"
+                      style={{ color: txtColorValue }}
+                    >
                       Contact
-                    </motion.a>
+                    </MotionLink>
                   </MenuLi>
                 </MenuUl>
                 <Contact>
-                  <motion.a href="/contact" color={txtColorValue}>
+                  <MotionLink
+                    to="/contact"
+                    style={{ color: colorValue }}
+                  >
                     문의하기
-                  </motion.a>
+                  </MotionLink>
                 </Contact>
               </>
             ) : (
               <>
-              <MobileMenuIconContainer>
-                <MobileHeaderMenu btnColor={txtColorValue} backColor={colorValue}/>
-              </MobileMenuIconContainer>
+                <MobileMenuIconContainer>
+                  <MobileHeaderMenu btnColor={txtColorValue} backColor={colorValue} />
+                </MobileMenuIconContainer>
               </>
             )}
           </BtnList>

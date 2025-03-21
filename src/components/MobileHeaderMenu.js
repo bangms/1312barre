@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
-import { motion, sync, useCycle } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion, useCycle } from "framer-motion";
 import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const sidebarVariants = {
   open: {
@@ -14,11 +15,11 @@ const sidebarVariants = {
       stiffness: 50,
       damping: 10,
       staggerChildren: 0.07,
-      delayChildren: 0.2
-    }
+      delayChildren: 0.2,
+    },
   },
   closed: {
-    x: "100%", // 오른쪽에서 숨겨짐
+    x: "100%",
     opacity: 0,
     transition: {
       type: "spring",
@@ -26,18 +27,18 @@ const sidebarVariants = {
       damping: 10,
       staggerChildren: 0.05,
       staggerDirection: -1,
-      when: "afterChildren", // 자식 exit 후에 부모 exit 시작
-    }
-  }
+      when: "afterChildren",
+    },
+  },
 };
 
 const Container = styled(motion.div)`
   position: absolute;
-  width: calc(40% - 20px) !important;
+  width: calc(50% - 20px) !important;
   height: calc(100vh - 95px);
   top: 95px;
   right: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   @media screen and (max-width: 768px) {
     top: 65px;
     height: calc(100vh - 65px);
@@ -47,6 +48,30 @@ const Container = styled(motion.div)`
 export const MobileHeaderMenu = ({ btnColor, backColor }) => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
+  const location = useLocation();
+
+  // 페이지 이동 시 메뉴 닫기
+  useEffect(() => {
+    if (isOpen) {
+      toggleOpen();
+    }
+    // location이 변경될 때마다 실행
+  }, [location]);
+
+  // 메뉴 외부 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        if (isOpen) {
+          toggleOpen();
+        }
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <motion.div

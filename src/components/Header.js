@@ -370,6 +370,7 @@ const MobileMenuIconContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  box-sizing: border-box;
 `;
 const ScrollToTopButton = styled(motion.button)`
   position: fixed;

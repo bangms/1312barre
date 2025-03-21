@@ -15,6 +15,11 @@ import Center01 from "./center01.jpg";
 import Slogan from "./slogan.png";
 import { ReactComponent as Logo } from "./logo/logo01.svg";
 
+import InstaIcon from "./icon/ic_insta.png";
+import KakaoIcon from "./icon/ic_kakao.png";
+import BlogIcon from "./icon/ic_blog.png";
+import NaverIcon from "./icon/ic_naver.png";
+
 import Yerin from "./yerin02.jpg"; 
 import BarreLogo from "./barrelogos.png";
 
@@ -36,5 +41,9 @@ export {
   Center01,
   Slogan,
   Yerin,
-  BarreLogo
+  BarreLogo,
+  InstaIcon,
+  KakaoIcon,
+  BlogIcon,
+  NaverIcon
 };

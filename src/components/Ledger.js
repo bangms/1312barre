@@ -9,6 +9,11 @@ import {
 import { Link } from "react-router-dom";
 
 const Ledger = () => {
+
+  const isPc = useMediaQuery({
+    query: "(min-width:850px)",
+  });
+
     return (
         <>
         <Wrapper>
@@ -54,9 +59,9 @@ const Ledger = () => {
             </Section>
           </Greeting>
           <Certificate>
-            Barre intensity의 국내 최초 인증 강사
+            Barre intensity의 국내 최초 인증 강사<br />
             South Korea‘s first certificated instructor, Yelin Lee
-            <CertificateImage
+            <CertificateImage option={isPc}
               href="https://www.barreintensity.com/instructors/2024/10/31/yelin-lee">
               {/* 인증 로고 이미지 */}
               {/* <img src={BarreLogo} alt="barre certificated instructor logo" /> */}
@@ -110,12 +115,17 @@ const Certificate = styled.div`
   color: #828282;
   font-size: 1.2rem;
   position: relative;
+  text-align: center;
+  line-height: 2rem;
 `;
 const CertificateImage = styled.a`
   display:block;
   cursor: pointer;
-  width: 550px;
-  height: 300px;
-  background-image: url(${BarreLogo})
+  width: ${(props) => props.option ? "550px" : "50%"};
+  height: ${(props) => props.option ? "300px" : "200px"};
+  background-image: url(${BarreLogo});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 export default Ledger;

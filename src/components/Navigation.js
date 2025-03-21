@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+const MotionLink = motion(Link);
 
 const liVariants = {
   open: {
@@ -103,9 +106,12 @@ export const Navigation = ({ color }) => {
   return (
     <Container variants={containerVariants}>
       <MenuLi color={color}>
-        <motion.a href="/about" style={{ color: color }}>
+        <MotionLink
+          to="/about"
+          style={{ color: color }}
+        >
           About
-        </motion.a>
+        </MotionLink>
       </MenuLi>
       {/* Founder/Instructor 메뉴 */}
       <MenuLi color={color} onClick={() => toggleSubMenu("founder")}>
@@ -121,14 +127,14 @@ export const Navigation = ({ color }) => {
               exit="closed"
             >
               <SubMenuLi color={color}>
-                <motion.a href="/founder" style={{ color: color }}>
+                <MotionLink to="/founder" style={{ color: color }}>
                   Founder
-                </motion.a>
+                </MotionLink>
               </SubMenuLi>
               <SubMenuLi color={color}>
-                <motion.a href="/founder" style={{ color: color }}>
+                <MotionLink to="/founder" style={{ color: color }}>
                   Instructor
-                </motion.a>
+                </MotionLink>
               </SubMenuLi>
             </SubMenuUl>
           )}
@@ -148,38 +154,38 @@ export const Navigation = ({ color }) => {
               exit="closed"
             >
               <SubMenuLi color={color}>
-                <motion.a href="/classes" style={{ color: color }}>
+                <MotionLink to="/classes" style={{ color: color }}>
                   Align flow
-                </motion.a>
+                </MotionLink>
               </SubMenuLi>
               <SubMenuLi color={color}>
-                <motion.a href="/classes" style={{ color: color }}>
+                <MotionLink to="/classes" style={{ color: color }}>
                   Balance
-                </motion.a>
+                </MotionLink>
               </SubMenuLi>
               <SubMenuLi color={color}>
-                <motion.a href="/classes" style={{ color: color }}>
+                <MotionLink to="/classes" style={{ color: color }}>
                   Cardio boost
-                </motion.a>
+                </MotionLink>
               </SubMenuLi>
               <SubMenuLi color={color}>
-                <motion.a href="/classes" style={{ color: color }}>
+                <MotionLink to="/classes" style={{ color: color }}>
                   Power strength
-                </motion.a>
+                </MotionLink>
               </SubMenuLi>
             </SubMenuUl>
           )}
         </AnimatePresence>
       </MenuLi>
       <MenuLi color={color}>
-        <motion.a href="/faq" style={{ color: color }}>
+        <MotionLink to="/faq" style={{ color: color }}>
           FAQ
-        </motion.a>
+        </MotionLink>
       </MenuLi>
       <MenuLi color={color}>
-        <motion.a href="/contact" style={{ color: color }}>
+        <MotionLink to="/contact" style={{ color: color }}>
           Contact
-        </motion.a>
+        </MotionLink>
       </MenuLi>
     </Container>
   );

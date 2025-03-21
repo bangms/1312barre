@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const Instructor = () => {
     return (
         <>
-        <h1>Instructor</h1>
         </>
     )
 };

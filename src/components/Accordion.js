@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 const Accordion = ({ item, index, expanded, setExpanded }) => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -24,9 +25,13 @@ const Accordion = ({ item, index, expanded, setExpanded }) => {
     collapsed: { opacity: 0, height: 0 }
   };
 
+  const isPc = useMediaQuery({
+    query: "(min-width:850px)",
+  });
+
   return (
     <>
-      <AccordionWrapper>
+      <AccordionWrapper option={isPc}>
       {item && (
         <AccordionItem key={index}>
           <AccordionTitle onClick={() => toggleIndex(index)}>
@@ -43,8 +48,7 @@ const Accordion = ({ item, index, expanded, setExpanded }) => {
   );
 };
 const AccordionWrapper = styled.div`
-  width: 100%;
-  max-width: 800px;
+  width: ${(props) => props.option ? "50%" : "80%"};
   margin: 2rem auto;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -57,11 +61,11 @@ const AccordionItem = styled.div`
 `;
 
 const AccordionTitle = styled.div`
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  padding: 1rem;
-  background-color: #0E76BC;
-  color: #fff;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #222;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -69,7 +73,11 @@ const AccordionTitle = styled.div`
   transition: background-color 0.3s ease;
   
   &:hover {
-    background-color: #0A5A8E;
+    background-color: rgba(14, 118, 188, 0.9);
+    color: #fff;
+  }
+  @media screen and (max-width: 850px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -77,11 +85,11 @@ const AccordionContent = styled.div`
   max-height: ${props => (props.isOpen ? '1000px' : '0')};
   overflow: hidden;
   transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: ${props => (props.isOpen ? '1rem' : '0 1rem')};
+  padding: ${props => (props.isOpen ? '10px 30px' : '0 30px')};
   background-color: #f9f9f9;
   font-size: 2rem;
   line-height: 2rem;
-  color: #333;
+  color: #828282;
 `;
 
 const ToggleIcon = styled.span`

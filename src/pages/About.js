@@ -46,8 +46,8 @@ const About = () => {
         transition={transition}
       >
         <MainTxt>Welcome to 1312barre</MainTxt>
-        <SubTxt>13(B)과 12(R), 두 숫자가 만난 특별한 공간,</SubTxt>
-        <SubTxt>1312barre에서 바레와 함께하는 새로운 여정을 시작해보세요.</SubTxt>
+        <SubTxt>13(B)과 12(R),<br className="is_mobile" /> 두 숫자가 만난 특별한 공간,</SubTxt>
+        <SubTxt>1312barre에서 바레와 함께하는<br className="is_mobile" /> 새로운 여정을 시작해보세요.</SubTxt>
       </Desc1>
 
       {/* 첫 번째 Desc 섹션 */}
@@ -60,7 +60,7 @@ const About = () => {
         <AnimatedDesc>
           <SubTxt>
             “Barre with me” 라는 슬로건처럼,
-            <br /> 함께하면 더 즐겁고 의미있는 시간이 될 거예요.
+            <br /> 함께하면 더 즐겁고 <br className="is_mobile" /> 의미있는 시간이 될 거예요.
           </SubTxt>
         </AnimatedDesc>
       </Desc>
@@ -68,37 +68,14 @@ const About = () => {
       {/* 두 번째 Desc 섹션 */}
       <Desc>
         <AnimatedDesc>
-          {
-            isMobile ? (
-              <>
-              <SubTxt>
-                바레는 단순한 운동이 아니에요.
-                <br />
-                몸과 마음을 동시에 깨우는 경험으로, 
-                <br />
-                누구나 즐길 수 있는 운동입니다.
-                <br />
-                비트 있는 음악에 맞춰 리듬을 타며 
-                <br />
-                몸을 움직이는 동안
-                <br />
-                힘든 순간 조차 신나고 즐거운 시간이 됩니다.
-              </SubTxt>
-              </>
-            ) : (
-              <>
-              <SubTxt>
-                바레는 단순한 운동이 아니에요.
-                <br />
-                몸과 마음을 동시에 깨우는 경험으로, 누구나 즐길 수 있는 운동입니다.
-                <br />
-                비트 있는 음악에 맞춰 리듬을 타며 몸을 움직이는 동안
-                <br />
-                힘든 순간 조차 신나고 즐거운 시간이 됩니다.
-              </SubTxt>
-              </>
-            )
-          }
+          <SubTxt>
+            바레는 단순한 운동이 아니에요.
+            <br />
+            몸과 마음을 동시에 깨우는 경험으로, <br className="is_mobile"/>누구나 즐길 수 있는 운동입니다.
+            <br />
+            비트 있는 음악에 맞춰 리듬을 타며 <br className="is_mobile"/>몸을 움직이는 동안 <br className="is_pc"/>
+            힘든 순간 조차 <br className="is_mobile"/>신나고 즐거운 시간이 됩니다.
+          </SubTxt>
         </AnimatedDesc>
       </Desc>
       <Desc>
@@ -109,9 +86,9 @@ const About = () => {
         </AnimatedDesc>
         <AnimatedDesc>
           <SubTxt>
-            1312barre에서 바레의 매력을 느끼고, 그 에너지를 나누세요.
+            1312barre에서 바레의 매력을 느끼고, <br className="is_mobile"/>그 에너지를 나누세요.
             <br />
-            더 나은 몸과 더 행복한 삶을 위한 첫걸음, 이곳에서 시작됩니다.
+            더 나은 몸과 더 행복한 삶을 위한 첫걸음, <br className="is_mobile"/>이곳에서 시작됩니다.
             <br />
             <br />
             <br />

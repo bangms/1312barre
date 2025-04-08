@@ -26,30 +26,22 @@ const Header = () => {
   const isPc = useMediaQuery({
     query: "(min-width:850px)",
   });
+
   const displayValue = useTransform(
     scrollY,
     [0, 600, 601],
-    ["flex", "flex", "none"]
-  );
-  const colorValue = useTransform(
-    scrollY,
-    [0, 375, 376],
-    ["#fff", "rgba(14,118,188,100)", "#fff"]
-  );
-  const txtColorValue = useTransform(
-    scrollY,
-    [0, 375, 376],
-    ["rgb(14,118,188)", "#fff", "rgb(14,118,188)"]
+    ["fixed", "fixed", "initial"]
   );
 
-  // 0~300px 구간: 완전 투명 → 반투명 그라데이션
-  // 그 이상: 짙은 메인 컬러 그라데이션으로 유지
-  const gradientValue = useTransform(scrollY, [0, 300, 99999], [
-    "linear-gradient(to bottom, rgba(14,118,188,0.5) 0%, rgba(14,118,188,0) 100%)",
-    "linear-gradient(to bottom, rgba(14,118,188,0.8) 0%, rgba(14,118,188,0.3) 100%)",
-    "linear-gradient(to bottom, rgba(14,118,188,1) 0%, rgba(14,118,188,1) 100%)"
-  ]);
 
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((latest) =>
+      console.log("scrollYProgress:", latest)
+    );
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  
   const handleScroll = () => {
     const scrollYValue = scrollY.get();
 
@@ -84,12 +76,12 @@ const Header = () => {
   });
   return (
     <>
-      <Wrapper style={{ background: colorValue, display: displayValue }}>
+      <Wrapper style={{ position: displayValue }}>
         <MenuContainer>
           <BtnList option={isPc}>
             <LogoBtn>
               <MotionLink to="/">
-                <MotionLogo style={{ fill: txtColorValue }} />
+                <MotionLogo style={{ fill: '#0E76BC' }} />
               </MotionLink>
             </LogoBtn>
             {isPc ? (
@@ -98,7 +90,6 @@ const Header = () => {
                   <MenuLi>
                     <MotionLink
                       to="/about"
-                      style={{ color: txtColorValue }}
                     >
                       About
                     </MotionLink>
@@ -106,17 +97,13 @@ const Header = () => {
                   <MenuLi>
                     <MotionLink
                       to="/founder"
-                      style={{ color: txtColorValue }}
                     >
                       Founder/Instructor
                     </MotionLink>
-                    <SubMenuUl
-                      style={{ background: colorValue, color: txtColorValue }}
-                    >
+                    <SubMenuUl>
                       <SubMenuLi>
                         <MotionLink
                           to="/founder"
-                          style={{ color: txtColorValue }}
                         >
                           Founder
                         </MotionLink>
@@ -124,7 +111,6 @@ const Header = () => {
                       <SubMenuLi>
                         <MotionLink
                           to="/founder"
-                          style={{ color: txtColorValue }}
                         >
                           Instructor
                         </MotionLink>
@@ -134,17 +120,13 @@ const Header = () => {
                   <MenuLi>
                     <MotionLink
                       to="/classes"
-                      style={{ color: txtColorValue }}
                     >
                       1312 CLASSES
                     </MotionLink>
-                    <SubMenuUl
-                      style={{ background: colorValue, color: txtColorValue }}
-                    >
+                    <SubMenuUl>
                       <SubMenuLi>
                         <MotionLink
                           to="/classes"
-                          style={{ color: txtColorValue }}
                         >
                           Align flow
                         </MotionLink>
@@ -152,7 +134,6 @@ const Header = () => {
                       <SubMenuLi>
                         <MotionLink
                           to="/classes"
-                          style={{ color: txtColorValue }}
                         >
                           Balance
                         </MotionLink>
@@ -160,7 +141,6 @@ const Header = () => {
                       <SubMenuLi>
                         <MotionLink
                           to="/classes"
-                          style={{ color: txtColorValue }}
                         >
                           Cardio boost
                         </MotionLink>
@@ -168,7 +148,6 @@ const Header = () => {
                       <SubMenuLi>
                         <MotionLink
                           to="/classes"
-                          style={{ color: txtColorValue }}
                         >
                           Power strength
                         </MotionLink>
@@ -178,7 +157,6 @@ const Header = () => {
                   <MenuLi>
                     <MotionLink
                       to="/faq"
-                      style={{ color: txtColorValue }}
                     >
                       FAQ
                     </MotionLink>
@@ -186,25 +164,23 @@ const Header = () => {
                   <MenuLi>
                     <MotionLink
                       to="/contact"
-                      style={{ color: txtColorValue }}
                     >
-                      Contact
+                      Location
                     </MotionLink>
                   </MenuLi>
                 </MenuUl>
                 <Contact>
                   <MotionLink
                     to="/contact"
-                    style={{ color: colorValue }}
                   >
-                    문의하기
+                    Reservation
                   </MotionLink>
                 </Contact>
               </>
             ) : (
               <>
                 <MobileMenuIconContainer>
-                  <MobileHeaderMenu btnColor={txtColorValue} backColor={colorValue} />
+                  <MobileHeaderMenu btnColor={'#0E76BC'} backColor={'rbga(255,255,255,0.7)'} />
                 </MobileMenuIconContainer>
               </>
             )}
@@ -229,13 +205,14 @@ const Wrapper = styled(motion.div)`
   width: 100%;
   height: 94px;
   z-index: 9999;
+  box-sizing: border-box;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   backdrop-filter: blur(8px);    /* 블러 처리 */
   -webkit-backdrop-filter: blur(8px); /* 사파리 호환 */
   ${({ theme }) => theme.common.flexCenter};
-  ${(props) =>
-    props.option !== "hide" && (({ theme }) => theme.common.fixedTop)};
+  background: rgba(255,255,255,0.7);
+  position: fixed;
   @media screen and (max-width: 768px) {
     height: 64px;
   }
@@ -292,8 +269,7 @@ const MenuLi = styled(motion.li)`
     color: #000;
     text-decoration: none;
     transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) 0s;
-    font-size: 1.7rem;
-    font-weight: 700;
+    font-size: 1.2rem;
     text-align: center;
   }
   &:hover {
